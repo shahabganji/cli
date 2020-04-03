@@ -1,13 +1,51 @@
+language: node_js
+
+node_js:
+  - "12"
+  - "10"
+  - "8"
+
 os:
   - linux
-  - windows
   - osx
-language: node_js
-node_js:
-  - "8"
-  - "10"
-  - "12"
+  - windows
 
 install:
   - npm install
   - npm run build
+
+jobs:
+  include:
+    - stage: Test_Docker_2
+    - os: linux
+      node_js: "12"
+      services:
+        - docker
+      install:
+        - npm install
+        - npm run build
+        - npm link
+      script:
+        - au new second -u -s http2,typescript,htmlmin-min,less,postcss-typical,jest,protractor,scaffold-navigation,docker && cd ./second && npm install && npm link aurelia-cli && npm run docker:build
+    - stage: Test_Docker_3
+    - os: linux
+      node_js: "12"
+      services:
+        - docker
+      install:
+        - npm install
+        - npm run build
+        - npm link
+      script:
+        - au new third -u -s dotnet-core,typescript,htmlmin-max,stylus,postcss-basic,jest,protractor,docker && cd ./third && npm install && npm link aurelia-cli && npm run docker:build
+    - stage: Test_Docker_7
+    - os: linux
+      node_js: "12"
+      services:
+        - docker
+      install:
+        - npm install
+        - npm run build
+        - npm link
+      script:
+        - au new seventh -u -s cli-bundler,alameda,dotnet-core,typescript,htmlmin-max,stylus,postcss-basic,jest,protractor,docker && cd ./seventh && npm install && npm link aurelia-cli && npm run docker:build
