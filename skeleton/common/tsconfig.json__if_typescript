@@ -43,6 +43,7 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "resolveJsonModule": true,
+    "outDir": "",
 
     // @if feat.plugin
     "paths": { "resources": [ "" ] },
